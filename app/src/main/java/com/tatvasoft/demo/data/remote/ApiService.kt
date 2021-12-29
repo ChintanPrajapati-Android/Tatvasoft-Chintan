@@ -1,10 +1,16 @@
 package com.tatvasoft.demo.data.remote
 
-import com.google.gson.JsonElement
+import com.tatvasoft.demo.model.DataModel
+import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.Query
 
 interface ApiService {
 
-    @GET("b/5f316e7d6f8e4e3faf2fa703")
-    suspend fun getData(): JsonElement
+
+    @GET("api/users")
+    suspend fun getData(
+        @Query("page") page: Int = 1
+    ): Response<DataModel>
 }
+

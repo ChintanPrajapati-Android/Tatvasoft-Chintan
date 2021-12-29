@@ -20,6 +20,9 @@ class PracticalOneActivity : BaseActivity(R.layout.activity_practical_one) {
         super.onCreate(savedInstanceState)
         adGame = GameAdapter()
         rvGame.adapter = adGame
+        toolbar.setNavigationOnClickListener {
+            onBackPressed()
+        }
 
         btnSubmit.setOnClickListener {
             edtInput.text?.let {

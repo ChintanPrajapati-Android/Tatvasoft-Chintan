@@ -26,6 +26,6 @@ class DataManager : IDataManager {
     }
 
     override fun getRemote(): ApiService {
-        return ApiClient.getInstance("https://api.jsonbin.io/").create(ApiService::class.java)
+        return ApiClient.getInstance("https://reqres.in/").create(ApiService::class.java)
     }
 }
