@@ -14,6 +14,8 @@ import kotlinx.android.synthetic.main.activity_practical_two.*
 
 class PracticalTwoActivity : BaseActivity(R.layout.activity_practical_two) {
 
+    private var counter: Int = 1
+    private var isFirstTime: Boolean = true
     private lateinit var dataViewModel: DataViewModel
     var loading: Boolean = false
 
@@ -22,6 +24,9 @@ class PracticalTwoActivity : BaseActivity(R.layout.activity_practical_two) {
         val adData = DataAdapter()
         rvData.adapter = adData
         rvData.layoutManager = LinearLayoutManager(this)
+        toolbar.setOnClickListener {
+            onBackPressed()
+        }
 
         dataViewModel = ViewModelProvider(this)[DataViewModel::class.java]
 
@@ -36,13 +41,27 @@ class PracticalTwoActivity : BaseActivity(R.layout.activity_practical_two) {
                     if (loading) {
                         if ((visibleCount + pastVisibleItems) >= totalCount) {
                             loading = false
-                            dataViewModel.getData().apply {
+                            counter++
+                            dataViewModel.getData(counter).apply {
                                 pbLoading.visibility = View.VISIBLE
                             }
                         }
                     }
                 }
+            }
 
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+               if (newState == RecyclerView.SCROLL_STATE_DRAGGING){
+                   if (isFirstTime && loading) {
+                       loading = false
+                       counter++
+                       dataViewModel.getData(counter).apply {
+                           pbLoading.visibility = View.VISIBLE
+                       }
+                   }
+                   isFirstTime = false
+               }
             }
         })
 

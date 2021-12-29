@@ -39,7 +39,7 @@ class DataAdapter : RecyclerView.Adapter<DataAdapter.DataHolder>() {
     }
 
     fun addData(list: ArrayList<Data>) {
-        alData = list
+        alData.addAll(list)
         notifyDataSetChanged()
     }
 }
