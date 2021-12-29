@@ -4,4 +4,7 @@
     <string name="practical_two">Practical Two</string>
     <string name="submit">Submit</string>
     <string name="error_square_root">Please enter valid Square Root number</string>
+    <string name="game">Game</string>
+    <string name="game_message">You won the game..!!</string>
+    <string name="close">Close</string>
 </resources>

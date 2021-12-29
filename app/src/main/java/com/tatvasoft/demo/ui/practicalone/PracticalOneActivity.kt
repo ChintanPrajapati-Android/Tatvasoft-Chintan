@@ -1,5 +1,7 @@
 package com.tatvasoft.demo.ui.practicalone
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -38,6 +40,15 @@ class PracticalOneActivity : BaseActivity(R.layout.activity_practical_one) {
 
         adGame.onItemClick = {
             callRandomNumber()
+        }
+
+        adGame.onDone = {
+            val builder =  AlertDialog.Builder(this)
+            builder.setTitle(getString(R.string.game))
+            builder.setMessage(getString(R.string.game_message))
+            builder.setNegativeButton(getString(R.string.close)
+            ) { p0, p1 -> p0?.dismiss() }
+            builder.create().show()
         }
     }
 

@@ -29,22 +29,27 @@ class GameAdapter : RecyclerView.Adapter<GameAdapter.GameHolder>() {
 
     override fun onBindViewHolder(holder: GameHolder, position: Int) {
         val item = alData[position]
-        holder.itemView.containerColor.isClickable = item.isInitial.not()
-        holder.itemView.containerColor.setOnClickListener {
-            alSavePosition.remove(item.index)
-            item.isDone = true
-            onItemClick?.invoke(position)
-            notifyItemChanged(position)
+        if (highLightValue == item.index) {
+            holder.itemView.containerColor.setOnClickListener {
+                alSavePosition.remove(item.index)
+                item.isDone = true
+                onItemClick?.invoke(position)
+                notifyItemChanged(position)
+                if (alSavePosition.isEmpty()){
+                    onDone?.invoke()
+                }
+            }
+        }else{
+            holder.itemView.containerColor.setOnClickListener(null)
         }
 
         if (highLightValue == item.index) {
-            holder.itemView.containerColor.setBackgroundColor(Color.RED)
-            holder.itemView.containerColor.isClickable = true
+            holder.itemView.containerColor.setCardBackgroundColor(Color.RED)
         }
 
         if (item.isDone) {
-            holder.itemView.containerColor.isClickable = false
-            holder.itemView.containerColor.setBackgroundColor(Color.BLUE)
+            holder.itemView.containerColor.setOnClickListener(null)
+            holder.itemView.containerColor.setCardBackgroundColor(Color.BLUE)
         }
     }
 
@@ -69,8 +74,6 @@ class GameAdapter : RecyclerView.Adapter<GameAdapter.GameHolder>() {
         }else {
             highLightValue = -1
             notifyItemChanged(highLightValue)
-            onDone?.invoke()
-
         }
     }
 }
